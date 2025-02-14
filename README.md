@@ -1,1 +1,1 @@
-# arm-test
+# Parallel workflow for building both ARM and AMD architectures on native runners
