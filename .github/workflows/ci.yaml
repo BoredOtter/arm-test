@@ -2,6 +2,7 @@ name: ci
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   DOCKERHUB_REPO: ksw2137/arm-test
@@ -90,11 +91,7 @@ jobs:
         with:
           images: |
             ${{ env.DOCKERHUB_REPO }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+          tags: ${{ github.sha }}
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/digests
