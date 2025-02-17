@@ -43,6 +43,16 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Build and load
+        uses: docker/build-push-action@v6
+        with:
+          tags: ${{ env.DOCKERHUB_REPO }}:${{ github.sha }}
+          load: true
+      
+      - name: List packages
+        run: |
+          docker run --rm ${{ env.DOCKERHUB_REPO }}:${{ github.sha }} pip list
+
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
